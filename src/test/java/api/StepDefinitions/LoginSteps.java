@@ -13,7 +13,6 @@ import java.util.Map;
 
 import org.testng.Assert;
 
-import api.Utility.ConfigUtils;
 import api.Utility.ExcelReader;
 import api.Utility.TokenManager;
 import api.requests.LoginRequests;
