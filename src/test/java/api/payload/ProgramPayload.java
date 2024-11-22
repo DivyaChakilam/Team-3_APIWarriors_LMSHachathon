@@ -18,7 +18,6 @@ public class ProgramPayload {
 	private  Map<String, String> currentRow;
 	private  final Logger LOGGER = LogManager.getLogger(ProgramPayload.class);
 
-	/************work on here properly we need scenario as well as payload to build request ******************/
 	public   Map<String, Object> getDataFromExcel(String scenario) 
 			throws IOException, ParseException, InvalidFormatException {
 		try {
