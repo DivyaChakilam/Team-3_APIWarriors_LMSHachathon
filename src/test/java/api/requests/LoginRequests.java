@@ -21,13 +21,9 @@ public class LoginRequests extends CommonUtils {
     public static RequestSpecification buildRequest(Map<String, String> currentRow) {
         // Use LoginPayload class to create the payload
         LoginPayload payload = new LoginPayload(currentRow.get("EmailId"), currentRow.get("Password"));
-       // Log the data for the current row
-       // logger.info("Building request for EmailId: {} with Password: {}", currentRow.get("EmailId"), currentRow.get("Password"));
-        // Build the request specification
 		RestAssured.baseURI = endpoints.getString("baseUrl");
-
         return given()
-                .contentType("application/json")
+                .contentType(currentRow.get("ContentType"))
                 .body(payload);
     }
 

@@ -16,19 +16,15 @@ public class LoginPayload extends CommonUtils {
 	private String email;
 	 @JsonProperty("password")
 	  private String password;
-	  
 	  public LoginPayload() {}
-	  
 	  public LoginPayload(String email, String password) {
 	        this.email = email;
 	        this.password = password;
 	    }
 	// Getters and Setters
-
 	    public String getPassword() {
 	        return password;
 	    }
-
 	    public void setPassword(String password) {
 	        this.password = password;
 	    }

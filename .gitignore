@@ -10,3 +10,6 @@
 /PDFReport/
 /allure-results/
 /bin/
+/Logs/
+/${basePath}/
+/Team3RestAssuredLog/
