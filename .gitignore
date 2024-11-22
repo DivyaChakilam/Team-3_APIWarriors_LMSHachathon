@@ -1,3 +1,4 @@
+/src/test/resources/features/getallprogramsnew.feature/
 /target/
 .project
 .classpath
@@ -10,5 +11,3 @@
 /PDFReport/
 /allure-results/
 /bin/
-/Logs/
-/${basePath}
