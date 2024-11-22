@@ -10,3 +10,5 @@
 /PDFReport/
 /allure-results/
 /bin/
+/Logs/
+/${basePath}
