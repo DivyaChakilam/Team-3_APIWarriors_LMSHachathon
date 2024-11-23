@@ -11,4 +11,5 @@
 /allure-results/
 /bin/
 /Logs/
-/${basePath}
+/${basePath}/
+/Team3RestAssuredLog/
