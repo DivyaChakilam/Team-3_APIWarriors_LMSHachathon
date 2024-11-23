@@ -13,8 +13,9 @@ import io.cucumber.testng.CucumberOptions;
 				"json:target/cucumber-json-report.json", // JSON Report
 				},
 		monochrome=false,  //console output color
-		features = {"src/test/resources/features" }, //location of feature files
-		glue= {"api.StepDefinitions"}
+		features = {"src/test/resources/features" },
+		glue= {"api.StepDefinitions"},
+		tags = "@loginPost"
 		
 		)
 public class RunnerFile extends AbstractTestNGCucumberTests{

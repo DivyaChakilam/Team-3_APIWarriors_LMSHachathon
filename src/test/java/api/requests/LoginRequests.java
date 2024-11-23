@@ -17,6 +17,7 @@ import static io.restassured.RestAssured.given;
 
 public class LoginRequests extends CommonUtils {
 	 private static final Logger logger = LogManager.getLogger(LoginRequests.class);
+	 private static Response response;
 	
     public static RequestSpecification buildRequest(Map<String, String> currentRow) {
         // Use LoginPayload class to create the payload
@@ -28,26 +29,8 @@ public class LoginRequests extends CommonUtils {
     }
 
     public static Response sendRequest(RequestSpecification requestSpec, Map<String, String> currentRow) {
-        String method = currentRow.get("Method");
-        String endpoint = currentRow.get("EndPoint");
-        Response response;
-        switch (method.toUpperCase()) {
-            case "POST":
-                response = requestSpec.when().post(endpoint);
-                break;
-            case "GET":
-                response = requestSpec.when().get(endpoint);
-                break;
-            case "PUT":
-                response = requestSpec.when().put(endpoint);
-                break;
-            case "DELETE":
-                response = requestSpec.when().delete(endpoint);
-                break;
-            default:
-                throw new IllegalArgumentException("Unsupported HTTP method: " + method);
-        }
-       return response;
+    	response = CommonUtils.getResponse(requestSpec);
+		return response;
     }
 	
 }
