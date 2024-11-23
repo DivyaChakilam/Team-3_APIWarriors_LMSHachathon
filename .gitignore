@@ -12,5 +12,5 @@
 /bin/
 /Logs/
 /${basePath}/
-/Team3RestAssuredLog/
-/pom.xml/
+Team3RestAssuredLog.txt
+pom.xml
