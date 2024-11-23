@@ -27,7 +27,6 @@ public class ProgramRequests extends CommonUtils {
 	public RequestSpecification setAuth() {
 		RestAssured.baseURI = endpoints.getString("baseUrl");
 		return given()
-				.contentType("application/json")
 				.header("Authorization", "Bearer " + TokenManager.getToken());
 	}
 
@@ -47,39 +46,17 @@ public class ProgramRequests extends CommonUtils {
 	}
 
 	public RequestSpecification buildRequest(RequestSpecification requestSpec) {
-		
-		 if (requestSpec == null) {
-	            throw new IllegalStateException("RequestSpecification is not initialized.");
-	        }
-		return requestSpec.body(program);
-		
+
+		if (requestSpec == null) {
+			throw new IllegalStateException("RequestSpecification is not initialized.");
+		}
+		return requestSpec.contentType(currentRow.get("ContentType")).body(program);
+
 	}
 
 	public Response sendRequest(RequestSpecification requestSpec) {
-		
-		if (requestSpec == null || currentRow == null) {
-            throw new IllegalStateException("Request or currentRow is not initialized.");
-        }
 
-		 String method = currentRow.get("Method");
-	        String endpoint = currentRow.get("EndPoint");
-	        Response response;
-	        switch (method.toUpperCase()) {
-	            case "POST":
-	                response = requestSpec.when().post(endpoint);
-	                break;
-	            case "GET":
-	                response = requestSpec.when().get(endpoint);
-	                break;
-	            case "PUT":
-	                response = requestSpec.when().put(endpoint);
-	                break;
-	            case "DELETE":
-	                response = requestSpec.when().delete(endpoint);
-	                break;
-	            default:
-	                throw new IllegalArgumentException("Unsupported HTTP method: " + method);
-	        }
-	       return response;
+		response = CommonUtils.getResponse(requestSpec);
+		return response;
 	}
 }

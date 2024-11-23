@@ -18,10 +18,10 @@ import io.restassured.specification.RequestSpecification;
 
 public class ProgramSteps {
 	ProgramRequests programrequest = new ProgramRequests();
-    private RequestSpecification requestSpec;
-    private Response response;
+	private RequestSpecification requestSpec;
+	private Response response;
 
-	
+
 	@Given("Admin set Authorization")
 	public void admin_set_authorization() {
 		requestSpec = programrequest.setAuth();
@@ -42,10 +42,8 @@ public class ProgramSteps {
 	@Then("Admin receives StatusCode with statusText")
 	public void admin_receives_status_code_with_status_text() {
 		if (response == null) {
-            throw new AssertionError("Response is null. API call might have failed.");
-        }
-		
-		
+			throw new AssertionError("Response is null. API call might have failed.");
+		}
 	}
 
 }
