@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+
 public class CommonUtils {
 	public static List<Map<String, String>> excelData;
 	public static Map<String, String> currentRow;
@@ -29,6 +32,32 @@ public class CommonUtils {
 			//LOGGER.error("Failed to read Excel file.", e);
 			throw new RuntimeException("Failed to read Excel file.", e);
 		}
+	}
+	public static Response getResponse(RequestSpecification requestSpec) {
+		if (requestSpec == null || currentRow == null) {
+            throw new IllegalStateException("Request or currentRow is not initialized.");
+        }
+
+		 String method = currentRow.get("Method");
+	        String endpoint = currentRow.get("EndPoint");
+	        Response response;
+	        switch (method.toUpperCase()) {
+	            case "POST":
+	                response = requestSpec.when().post(endpoint);
+	                break;
+	            case "GET":
+	                response = requestSpec.when().get(endpoint);
+	                break;
+	            case "PUT":
+	                response = requestSpec.when().put(endpoint);
+	                break;
+	            case "DELETE":
+	                response = requestSpec.when().delete(endpoint);
+	                break;
+	            default:
+	                throw new IllegalArgumentException("Unsupported HTTP method: " + method);
+	        }
+	       return response;
 	}
 }
 
