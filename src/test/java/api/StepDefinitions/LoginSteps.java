@@ -21,7 +21,6 @@ public class LoginSteps {
 	private List<Map<String, String>> excelData;
 	private Map<String, String> currentRow;
 	String scenario;
-
 	@Given("Admin creates request with credentials with {string}")
 	public void admin_creates_request_with_credentials_with(String scenario) throws IOException {
 		// Load the Excel data if not already loaded
@@ -58,7 +57,6 @@ public class LoginSteps {
 
 	@Then("Admin receives status code with status text")
 	public void admin_receives_status_code_with_status_text() {
-
 		if (response == null) {
 			throw new AssertionError("Response is null. API call might have failed.");
 		}
@@ -66,6 +64,8 @@ public class LoginSteps {
 		String expectedStatusText = currentRow.get("StatusText");
 		int expectedStatusCode = (int) Double.parseDouble(expectedStatusCodeString); // Convert "201.0" to 201
 		int actualStatusCode = response.getStatusCode();
+		//		String actualStatusText =response.getStatusLine();
+		//		System.out.println("actualStatusText :" + actualStatusText);
 		String actualStatusMessage;
 		if(actualStatusCode == 200)
 		{
