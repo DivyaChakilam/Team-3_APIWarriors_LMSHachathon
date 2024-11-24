@@ -17,9 +17,9 @@ public class CommonUtils {
 	public static String filePath = endpoints.getString("excelPath");
 	public static Map<String, String> getCurrentRow(String scenario,String sheetName){
 		try {
-			if (excelData == null) {
+//			if (excelData == null) {
 				excelData = ExcelReader.readExcelData(filePath, sheetName);
-			}
+//			}
 			// Loop through the Excel data and compare each row's scenario with the passed scenario
 			for (Map<String, String> row : excelData) {
 				currentRow = row;
