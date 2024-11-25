@@ -1,11 +1,16 @@
 package api.Utility;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.containsString;
+
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import org.testng.Assert;
+
+import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
@@ -17,9 +22,7 @@ public class CommonUtils {
 	public static String filePath = endpoints.getString("excelPath");
 	public static Map<String, String> getCurrentRow(String scenario,String sheetName){
 		try {
-			if (excelData == null) {
 				excelData = ExcelReader.readExcelData(filePath, sheetName);
-			}
 			// Loop through the Excel data and compare each row's scenario with the passed scenario
 			for (Map<String, String> row : excelData) {
 				currentRow = row;
@@ -33,31 +36,56 @@ public class CommonUtils {
 			throw new RuntimeException("Failed to read Excel file.", e);
 		}
 	}
-	public static Response getResponse(RequestSpecification requestSpec) {
+	public static Response getResponse(RequestSpecification requestSpec, String endpoint) {
 		if (requestSpec == null || currentRow == null) {
-            throw new IllegalStateException("Request or currentRow is not initialized.");
-        }
+			throw new IllegalStateException("Request or currentRow is not initialized.");
+		}
 
-		 String method = currentRow.get("Method");
-	        String endpoint = currentRow.get("EndPoint");
-	        Response response;
-	        switch (method.toUpperCase()) {
-	            case "POST":
-	                response = requestSpec.when().post(endpoint);
-	                break;
-	            case "GET":
-	                response = requestSpec.when().get(endpoint);
-	                break;
-	            case "PUT":
-	                response = requestSpec.when().put(endpoint);
-	                break;
-	            case "DELETE":
-	                response = requestSpec.when().delete(endpoint);
-	                break;
-	            default:
-	                throw new IllegalArgumentException("Unsupported HTTP method: " + method);
-	        }
-	       return response;
+		String method = currentRow.get("Method");
+		//String endpoint = currentRow.get("EndPoint");
+		Response response;
+		switch (method.toUpperCase()) {
+		case "POST":
+			response = requestSpec.when().post(endpoint);
+			break;
+		case "GET":
+			response = requestSpec.when().get(endpoint);
+			break;
+		case "PUT":
+			response = requestSpec.when().put(endpoint);
+			break;
+		case "DELETE":
+			response = requestSpec.when().delete(endpoint);
+			break;
+		default:
+			throw new IllegalArgumentException("Unsupported HTTP method: " + method);
+		}
+		return response;
+	}
+
+	public static void validateResponseSchema(Response response, String schemaPath) {
+
+		response.then().assertThat().body(JsonSchemaValidator.matchesJsonSchemaInClasspath(schemaPath));
+	}
+	
+	public static String validateResponseMessage(String expectedStatusText, int actualStatusCode, String scenario,
+			Response response) {
+		String actualStatusMessage = null;
+		if(expectedStatusText!=null)
+		{
+			if(!scenario.equalsIgnoreCase("PutInvalidProgramId")
+					&& !scenario.contains("NoAuth")
+					&& !scenario.contains("InvalidToken")
+					&& actualStatusCode!=200
+					&& actualStatusCode!=201)
+			{	
+				actualStatusMessage = response.jsonPath().getString("message");
+				boolean actualSuccess = response.jsonPath().getBoolean("success");
+				//return actualStatusMessage;
+				assertThat("Status Text does not match!", actualStatusMessage, containsString(expectedStatusText));
+			}
+		}
+		return actualStatusMessage;
 	}
 }
 
