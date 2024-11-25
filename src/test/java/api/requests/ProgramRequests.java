@@ -37,7 +37,7 @@ public class ProgramRequests extends CommonUtils {
 
 		Map<String, Object> programDetails = new ProgramPayload().getDataFromExcel(scenario);
 		if(programDetails != null) {
-			if(programDetails.get("program") != null) {
+			if(programDetails.get("programPojo") != null) {
 				this.programPojo = (ProgramPojo) programDetails.get("programPojo");
 			}
 			if(programDetails.get("currentRow") != null) {
@@ -58,6 +58,7 @@ public class ProgramRequests extends CommonUtils {
 			requestSpec = given()
 					.header("Authorization", "Bearer " + INVALID_TOKEN);
 		}
+		
 		// Set content type from currentRow
 		requestSpec.contentType(currentRow.get("ContentType"));
 		// Conditionally add the request body
