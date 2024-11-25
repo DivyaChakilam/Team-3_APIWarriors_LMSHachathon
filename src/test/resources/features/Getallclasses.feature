@@ -18,28 +18,87 @@
 #Sample Feature Definition Template
 @Classgetrequest
 Feature: Class GET Request
- Background:
-Given Admin set Authorization
+
+  Background: 
+    Given  Admin set Authorization
+
   @getrequestallclassrecordings
   Scenario Outline: Check if admin able to retrieve all class recording with valid/invalid Endpoints
-    Given Admin creates get request (all class recordings)Request for  the LMS API with  "<scenario>""
+    Given Admin creates get request (all class recordings)Request for  the LMS API with  "<scenario>"
     When Admin sends   get request (all class recordings)HTTPS Request with endpoint
     Then Admin receives StatusCode with statusText for getallclassrecordings
 
     Examples: 
-      | Scenario             |
-      | Invalid Endpoint     |
-      | Invalid Method       |
-      | Valid Endpoint       |
+      | scenario         |
+      | Invalid Endpoint |
+      | Invalid Method   |
+      | Valid Endpoint   |
       
-      @GetallClassList
+@GetallClassList
       Scenario Outline: Check if admin able to retrieve all class list with valid/invalid Endpoints
-    Given Admin creates get request (all classlist)Request for  the LMS API with  "<scenario>""
+    Given Admin creates get request (all classlist)Request for  the LMS API with  "<scenario>"
     When Admin sends   get request (all class list)HTTPS Request with endpoint
     Then Admin receives StatusCode with statusText for getallclasslist
       Examples: 
-      | Scenario             |
-      | Invalid Endpoint     |
-      | Invalid Method       |
-      | Valid Endpoint       |
+      | scenario             |
+      | Invalid Endpointclass   |
+      | Invalid Methodclass     |
+      | Valid Endpointclass     |
+      @GetAllClassesByBatchId
+ Scenario Outline: Check if admin able to retrieve all Classes  with  Batchid and valid/invalid Endpoints
+    Given Admin creates get request (all Classes  with valid Batchid) Request for  the LMS API with  "<scenario>"
+    When Admin sends   get request (all Classes  with valid Batchid)HTTPS Request with endpoint
+    Then Admin receives StatusCode with statusText for all Classes  with valid Batchid
+      Examples: 
+      | scenario             |
+      | valid Endpointallclasswithbatchid     |
+      | valid Endpointallclasswithinvalidbatchid       |
+      | Invalid Endpointallclasswithbatchid     |
+      | Invalid methodclasswithbatchid     |
+@GetAllClassesByStaffId
+ Scenario Outline: Check if admin able to retrieve all Classes  with  StaffId and valid/invalid Endpoints
+    Given Admin creates get request (all Classes  with valid StaffId) Request for  the LMS API with  "<scenario>"
+    When Admin sends   get request (all Classes  with valid StaffId)HTTPS Request with endpoint
+    Then Admin receives StatusCode with statusText for all Classes  with StaffId
+      Examples: 
+      | scenario             |
+      | valid EndpointallclasswithStaffId     |
+      | valid EndpointallclasswithinvalidStaffId       |
+      | Invalid EndpointallclasswithStaffId     |
+      | Invalid methodclasswithStaffId     | 
       
+  @GetAllClassesByClassTopic
+ Scenario Outline: Check if admin able to retrieve all Classes  with  ClassTopic and valid/invalid Endpoints
+    Given Admin creates get request (all Classes  with valid ClassTopic) Request for  the LMS API with  "<scenario>"
+    When Admin sends   get request (all Classes  with valid ClassTopic)HTTPS Request with endpoint
+    Then Admin receives StatusCode with statusText for all Classes  with ClassTopic
+      Examples: 
+      | scenario             |
+      | valid EndpointallclasswithClassTopic     |
+      | valid EndpointallclasswithinvalidClassTopic       |
+      | Invalid EndpointallclasswithClassTopic     |
+      | Invalid methodclasswithClassTopic     | 
+      
+   @UpcomingClassesforparticularstudentId
+ Scenario Outline: Check if admin able to retrieve upcoming classes with valid/invalid Student Id  Endpoints
+    Given Admin creates get request to retrieve upcoming classes Request for  the LMS API with  "<scenario>"
+    When Admin sends   get request to retrieve upcoming classes  with endpoint
+    Then Admin receives StatusCode with statusText  for retrieve upcoming classesforparticularstudentId
+      Examples: 
+      | scenario             |
+      | valid EndpointwithStudentId     |
+      | valid EndpointinvalidStudentId       |
+      | Invalid EndpointStudentId     |
+      | Invalid methodStudentId     |  
+      
+      @downloadClassRecordingsbyClassId
+ Scenario Outline: Check if admin able to retrieve downloadClassRecordings by valid/invalid ClassId  Endpoints
+    Given Admin creates get request to downloadClassRecordingsbyClassId for  the LMS API with  "<scenario>"
+    When Admin sends   get request to downloadClassRecordingsbyClassId  with endpoint
+    Then Admin receives StatusCode with statusText  for downloadClassRecordingsbyClassId
+      Examples: 
+      | scenario             |
+      | valid EndpointClassId     |
+      | valid EndpointinvalidClassId       |
+      | Invalid EndpointClassId     |
+      | Invalid methodrecordClassId     |  
