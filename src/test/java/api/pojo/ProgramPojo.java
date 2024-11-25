@@ -13,7 +13,9 @@ public class ProgramPojo {
 
 	public ProgramPojo(String programName, String programDescription, String programStatus) {
 		this.programName = programName;
-		this.programDescription = programDescription;
+		if(programDescription!=null) {
+			this.programDescription = programDescription;
+		}
 		this.programStatus = programStatus;
 	}
 

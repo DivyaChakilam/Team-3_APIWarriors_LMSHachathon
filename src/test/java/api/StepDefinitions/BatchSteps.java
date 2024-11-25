@@ -40,6 +40,7 @@ public class BatchSteps {
 
     @Then("Admin receives StatusCode for batch with statusText")
     public void admin_receives_status_code_for_batch_with_status_text() {
+        System.out.println(response);
         if (response == null) {
             throw new AssertionError("Response is null. API call might have failed.");
 
