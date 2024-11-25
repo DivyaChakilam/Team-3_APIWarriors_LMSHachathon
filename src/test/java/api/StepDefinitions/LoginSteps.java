@@ -49,10 +49,8 @@ public class LoginSteps {
 		String expectedResponseMessage = currentRow.get("ResponseMessage"); //Catch Error Message
 		int expectedStatusCode = (int) Double.parseDouble(expectedStatusCodeString); // Convert "201.0" to 201
 		int actualStatusCode = response.getStatusCode();
-//				String actualStatusText =response.getStatusLine();
-//				System.out.println("actualStatusText :" + actualStatusText);
-	
-		//---------Validate Status Code-----------------
+       //---------Validate Status Code-----------------
+		String actualStatusMessage;
 		if(actualStatusCode == 200)
 		{
 			String token = response.jsonPath().getString("token");

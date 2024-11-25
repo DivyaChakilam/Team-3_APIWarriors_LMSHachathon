@@ -1,21 +1,20 @@
 package api.requests;
 
+import static io.restassured.RestAssured.given;
+
 import java.util.Map;
-import java.util.ResourceBundle;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import api.Utility.CommonUtils;
 import api.payload.LoginPayload;
-import api.pojo.LoginPojo;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.ResponseSpecification;
-import static io.restassured.RestAssured.given;
 
 public class LoginRequests extends CommonUtils {
+
 	 private static final Logger logger = LogManager.getLogger(LoginRequests.class);
 	 private static Response response;
 	
@@ -29,8 +28,10 @@ public class LoginRequests extends CommonUtils {
     }
 
     public static Response sendRequest(RequestSpecification requestSpec, Map<String, String> currentRow) {
-    	response = CommonUtils.getResponse(requestSpec);
+    	String endpoint = currentRow.get("EndPoint");
+    	response = CommonUtils.getResponse(requestSpec,endpoint);
 		return response;
     }
 	
+
 }
