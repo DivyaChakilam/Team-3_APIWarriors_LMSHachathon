@@ -23,11 +23,12 @@ public class ClassPojo {
 	    private String classStaffId;
 	    private String classTopic;
 	    private List<String> classScheduledDates;
+	    private String classStatus;
   
 
 	public ClassPojo(float batchId, String classComments, String classDate, String classDescription, float classNo,
-            String classNotes, String classRecordingPath, String classStaffId, String classTopic,
-            List<String> classScheduledDates) {
+            String classNotes, String classRecordingPath, String classStaffId, String classTopic, 
+            List<String> classScheduledDates,String classStatus) {
 		this.batchId = batchId;
         this.classComments = classComments;
         this.classDate = classDate;
@@ -38,7 +39,7 @@ public class ClassPojo {
         this.classStaffId = classStaffId;
         this.classTopic = classTopic;
         this.classScheduledDates = classScheduledDates;
-        
+        this.classStatus = classStatus;
 	}
 
 	public float getbatchId() {
@@ -121,7 +122,13 @@ public class ClassPojo {
     public void setClassScheduledDates(List<String> classScheduledDates) {
         this.classScheduledDates = classScheduledDates;
     }
+    public String getclassStatus() {
+        return classStatus;
+    }
 
+    public void setclassStatus(String classStatus) {
+    	this.classStatus = classStatus;
+    }
     
 
 }

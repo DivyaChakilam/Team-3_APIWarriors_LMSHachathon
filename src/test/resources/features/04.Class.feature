@@ -12,11 +12,24 @@ Given Admin set Class Authorization
     	| Scenario             		|
       | Invalid Endpoint     		|
       | Existing class topic   	|
-      | Without request body    |
-      #| Additional field values |
-      #| Invalid data						|
-      #| Mandatory           		|
-      #| Valid details						|
+      | Additional field values |
+      | Invalid data						|
+      | Mandatory           		|
+      | Valid details						|
       
 
+      @getClassByID
+  Scenario Outline: Check if admin able to retrieve a batch with valid/invalid Program ID
+    Given Admin creates GET Request with valid/invalid Class Id for "<Scenario>"
+    When Admin sends HTTPS Request with endpoint
+    Then Admin receives StatusCode for Class with statusText
+
+    Examples:
+      | Scenario                          |
+      | GetClassRecordingByClassID        |
+      #| GetClassDetailsByClassID         |
+      #| GetClassRecordingByBatchID |
+      
+      
+      
       
