@@ -8,17 +8,18 @@ Feature: Login to LMS Portal
     Then Admin receives status code with status text
 
     Examples: 
-      | scenario         |
-      | Invalid Endpoint |
-      | Invalid EmailId  |
-      | Invalid Password |
-
-  @validlogin
-  Scenario Outline: check if user is able to login with invalid data
-    Given Admin creates request with credentials with "<scenario>"
-    When Admin calls post method with endpoint
-    Then Admin receives status code with status text
-
-    Examples: 
-      | scenario          |
-      | Valid Credentials |
+      | scenario           |
+      | Invalid Endpoint   |
+      | Invalid EmailId    |
+      | Invalid Password   |
+      #| WithoutRequestBody |
+      | Valid Credentials  |
+  #@validlogin
+  #Scenario Outline: check if user is able to login with invalid data
+    #Given Admin creates request with credentials with "<scenario>"
+    #When Admin calls post method with endpoint
+    #Then Admin receives status code with status text
+#
+    #Examples: 
+      #| scenario          |
+      #| Valid Credentials |

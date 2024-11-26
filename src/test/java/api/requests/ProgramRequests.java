@@ -23,8 +23,8 @@ public class ProgramRequests extends CommonUtils {
 	private static Map<String, String> currentRow;
 	private ProgramPojo programPojo;
 	private static final String INVALID_PROGRAM_ID = "iuh";
-    private static final int INVALID_PROGRAM_NAME = 123;
-    private static final String INVALID_TOKEN = "njbsjkbfk";
+	private static final int INVALID_PROGRAM_NAME = 123;
+	private static final String INVALID_TOKEN = "njbsjkbfk";
 
 	public RequestSpecification setAuth() {
 		RestAssured.baseURI = endpoints.getString("baseUrl");
@@ -58,13 +58,18 @@ public class ProgramRequests extends CommonUtils {
 			requestSpec = given()
 					.header("Authorization", "Bearer " + INVALID_TOKEN);
 		}
-		
+		else if(scenarioName.contains("InvalidBaseURI")) {
+			RestAssured.baseURI = endpoints.getString("invalidBaseUrl");
+			return given()
+					.header("Authorization", "Bearer " + TokenManager.getToken());
+		}
+
 		// Set content type from currentRow
 		requestSpec.contentType(currentRow.get("ContentType"));
 		// Conditionally add the request body
-		if (!scenarioName.equalsIgnoreCase("PutWithoutRequestBodyByID")
-				//&& currentRow.get("Method").equalsIgnoreCase("GET")
-				//&& currentRow.get("Method").equalsIgnoreCase("DELETE")
+		if (!scenarioName.contains("WithoutRequestBody")
+				&& !scenarioName.contains("Get")
+				&& !scenarioName.contains("Delete")
 				) 
 		{
 			requestSpec.body(programPojo);
@@ -115,18 +120,18 @@ public class ProgramRequests extends CommonUtils {
 
 		// Determine if the endpoint needs an ID or Name 
 		if (putEndpoint.contains("Id")) {
-			endpoint += currentRow.get("ScenarioName").equalsIgnoreCase("PutInvalidProgramId")
+			endpoint += currentRow.get("ScenarioName").contains("InvalidID")
 					? INVALID_PROGRAM_ID
-							: Commons.getProgramId();
+							: 16516; //Commons.getProgramId();
 		} else if (putEndpoint.contains("Name")) {
-			endpoint += currentRow.get("ScenarioName").equalsIgnoreCase("PutInvalidProgramName")
+			endpoint += currentRow.get("ScenarioName").contains("InvalidName")
 					? INVALID_PROGRAM_NAME
 							: Commons.getProgramName();
 		}
 		response = CommonUtils.getResponse(requestSpec,endpoint);
 		return response;
 	}
-
+	//Post/Put repsonse body validations
 	public void validateProgramResponseBodyDetails(Response response) {
 		String actualProgramName = response.jsonPath().getString("programName");
 		Assert.assertEquals(actualProgramName, currentRow.get("ProgramName"), "Program Name in response does not match!");
@@ -138,4 +143,24 @@ public class ProgramRequests extends CommonUtils {
 		String actualProgramStatus = response.jsonPath().getString("programStatus");
 		Assert.assertEquals(actualProgramStatus, currentRow.get("ProgramStatus"), "Program Status in response does not match!");
 	}
+
+	public void validateGetProgramIDResponseBodyDetails(Response response) {
+		int actualprogramId = response.jsonPath().getInt("programId");
+		Assert.assertEquals(actualprogramId, Commons.getProgramId(), "Program Id in response does not match!");
+		String schemaPath = endpoints.getString("getProgramByIDSchemaPath");
+		CommonUtils.validateResponseSchema(response,schemaPath);	}
+
+	public void validateGetAllProgramResponseBody(Response response)
+	{
+		String schemaPath = endpoints.getString("getAllProgramsSchemaPath");
+		CommonUtils.validateResponseSchema(response,schemaPath);
+		
+	}
+	public void validateGetAllProgramUsersResponseBody(Response response)
+	{
+		String schemaPath = endpoints.getString("getAllProgramUsersSchemaPath");
+		CommonUtils.validateResponseSchema(response,schemaPath);
+		
+	}
+	
 }

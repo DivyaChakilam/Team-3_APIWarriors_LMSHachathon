@@ -1,0 +1,46 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "programId": {
+        "type": "integer"
+      },
+      "programName": {
+        "type": "string"
+      },
+      "programDescription": {
+        "type": ["string", "null"]
+      },
+      "programStatus": {
+        "type": "string"
+      },
+      "programUsers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "userId": {
+              "type": "string"
+            },
+            "userFirstName": {
+              "type": "string"
+            },
+            "userLastName": {
+              "type": "string"
+            },
+            "userPhoneNumber": {
+              "type": "string"
+            },
+            "userLinkedinUrl": {
+              "type": ["string", "null"]
+            }
+          },
+          "required": ["userId", "userFirstName", "userLastName"]
+        }
+      }
+    },
+    "required": ["programId", "programName", "programDescription", "programStatus"]
+  }
+}
