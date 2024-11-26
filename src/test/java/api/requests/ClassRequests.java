@@ -23,6 +23,7 @@ public class ClassRequests extends CommonUtils {
     private List<Map<String, String>> excelData;
     private Map<String, String> currentRow;
     private ClassPojo classPojo;
+    
 
     // Method to set Authorization
     public RequestSpecification setAuth() {
@@ -48,6 +49,11 @@ public class ClassRequests extends CommonUtils {
             throw new IllegalArgumentException("Class details are null. Ensure Excel data is correctly formatted.");
         }
     }
+    
+    
+    
+    
+    
 
     // Method to build the RequestSpecification with content type and body
     public RequestSpecification buildRequest(RequestSpecification requestSpec) {
@@ -79,3 +85,7 @@ public class ClassRequests extends CommonUtils {
 
     }
 }
+    
+    
+    
+
