@@ -10,7 +10,7 @@ Feature: Program Post Request
     When Admin sends HTTPS Request and request Body with endpoint
     Then Admin receives StatusCode with statusText "<Scenario>"
 
-    Examples: 
+    Examples:
       | Scenario               |
       | InvalidEndpoint        |
       | Existing Program       |
@@ -27,7 +27,7 @@ Feature: Program Post Request
     When Admin sends HTTPS Request and request Body with "programId" endpoint
     Then Admin receives StatusCode with statusText "<Scenario>"
 
-    Examples: 
+    Examples:
       | Scenario                    |
       | PutProgramByInvalidID       |
       | PutInvalidRequestBodyByID   |
