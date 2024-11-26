@@ -15,5 +15,3 @@ Feature: Login to LMS Portal
       | Invalid Method       |
       | Valid Credentials    |
       
-      
-  
