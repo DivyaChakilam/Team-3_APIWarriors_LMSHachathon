@@ -27,7 +27,7 @@ pipeline {
             properties: [],
             reportBuildPolicy: 'ALWAYS',
             results: [
-              [path: '/var/jenkins_home/workspace/kanchanProjPipeline/allure-results']
+              [path: '/var/jenkins_home/workspace/kanchanProjPipeline/allure-result']
             ]
           ])
         }
