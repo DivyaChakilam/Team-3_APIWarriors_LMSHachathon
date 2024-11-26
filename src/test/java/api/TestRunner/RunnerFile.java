@@ -16,8 +16,8 @@ import io.cucumber.testng.CucumberOptions;
 				},
 		monochrome=false,  //console output color
 		features = {"src/test/resources/features" },
-		glue= {"api.StepDefinitions"},
-		tags = "@loginPost"
+		glue= {"api.StepDefinitions"}
+		
 		
 		)
 public class RunnerFile extends AbstractTestNGCucumberTests{
