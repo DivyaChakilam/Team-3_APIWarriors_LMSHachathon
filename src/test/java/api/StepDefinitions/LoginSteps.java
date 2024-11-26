@@ -64,8 +64,8 @@ public class LoginSteps {
 		String expectedStatusText = currentRow.get("StatusText");
 		int expectedStatusCode = (int) Double.parseDouble(expectedStatusCodeString); // Convert "201.0" to 201
 		int actualStatusCode = response.getStatusCode();
-		//		String actualStatusText =response.getStatusLine();
-		//		System.out.println("actualStatusText :" + actualStatusText);
+//				String actualStatusText =response.getStatusLine();
+//				System.out.println("actualStatusText :" + actualStatusText);
 		String actualStatusMessage;
 		if(actualStatusCode == 200)
 		{

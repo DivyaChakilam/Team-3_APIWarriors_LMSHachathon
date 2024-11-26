@@ -11,7 +11,6 @@ import org.apache.logging.log4j.Logger;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import api.Utility.CommonUtils;
-import api.Utility.ExcelReader;
 import api.pojo.ProgramPojo;
 
 public class ProgramPayload extends CommonUtils{
@@ -24,9 +23,9 @@ public class ProgramPayload extends CommonUtils{
 			throws IOException, ParseException, InvalidFormatException {
 		currentRow = CommonUtils.getCurrentRow(scenario,sheetName);
 		Map<String, Object> programDetails = new  HashMap<String, Object>();
-		ProgramPojo program = new ProgramPojo(currentRow.get("ProgramName"),currentRow.get("ProgramDesc"),currentRow.get("ProgramStatus"));
-		LOGGER.info("Read Program details from Excel file: " + program);
-		programDetails.put("program", program);
+		ProgramPojo programPojo = new ProgramPojo(currentRow.get("ProgramName"),currentRow.get("ProgramDesc"),currentRow.get("ProgramStatus"));
+		LOGGER.info("Read Program details from Excel file: " + programPojo);
+		programDetails.put("programPojo", programPojo);
 		programDetails.put("currentRow", currentRow);
 		return programDetails;
 
