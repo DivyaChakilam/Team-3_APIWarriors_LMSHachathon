@@ -55,7 +55,8 @@ public class BatchRequests extends CommonUtils {
     }
     public Response sendRequest(RequestSpecification requestSpec) {
 
-         response = CommonUtils.getResponse(requestSpec);
+        String endpoint = currentRow.get("EndPoint");
+        response = CommonUtils.getResponse(requestSpec,endpoint);
         return response;
     }
 
