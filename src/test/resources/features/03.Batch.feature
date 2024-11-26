@@ -39,8 +39,9 @@ Feature: Create new Batch
     When Admin sends HTTPS Request with endpoint
     Then Admin receives StatusCode for batch with statusText
     Examples:
-      | Scenario           |
-      | invalid Program Id |
-      | invalid endpoint   |
-      | deleted program id |
-      | valid Program Id   |
+      | Scenario                  |
+      | GetBatchByProgramIdNoAuth |
+      | invalid Program Id        |
+      | invalid endpoint          |
+      | deleted program id        |
+      | valid Program Id          |

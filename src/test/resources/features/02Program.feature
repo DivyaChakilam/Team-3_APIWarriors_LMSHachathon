@@ -104,7 +104,7 @@ Feature: Program Post Request
       | DeleteProgramByNameNoAuth          |
       #| DeleteProgramByValidName           |
 
-  @deleteprogram
+  @deleteProgramByProgramId
   Scenario Outline: Check if Admin able to delete a program with valid/invalid program ID
     Given Admin creates DELETE Request for the LMS API endpoint with valid_invalid program ID "<Scenario>"
     When Admin sends HTTPS Request with endpoint for delete program
@@ -113,4 +113,5 @@ Feature: Program Post Request
     Examples:
       | Scenario                         |
       | valid LMS API,invalid program ID |
+      | DeleteProgramByProgramIdNoAuth   |
       | valid program ID                 |
