@@ -74,9 +74,11 @@ public class CommonUtils {
 		String actualStatusMessage = null;
 		if(expectedStatusText!=null)
 		{
-			if(!scenario.equalsIgnoreCase("PutInvalidProgramId")
+			if(!scenario.contains("InvalidID")
 					&& !scenario.contains("NoAuth")
 					&& !scenario.contains("InvalidToken")
+					&& !scenario.contains("InvalidBaseURI")
+					&& !scenario.contains("InvalidEndpoint")
 					&& actualStatusCode!=200
 					&& actualStatusCode!=201)
 			{

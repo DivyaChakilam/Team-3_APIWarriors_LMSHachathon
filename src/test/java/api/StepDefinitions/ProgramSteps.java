@@ -51,15 +51,42 @@ public class ProgramSteps {
 		if (response == null) {
 			throw new AssertionError("Response is null. API call might have failed.");
 		}
+		/*************************status code validation********************************/
 		int actualStatusCode = response.getStatusCode();
 		Assert.assertEquals(actualStatusCode, programrequest.getStatusCode(), "Status code does not match!");
+		/*************************status Text validation********************************/
 		String expectedStatusText = programrequest.getStatusText();
 		CommonUtils.validateResponseMessage(expectedStatusText,actualStatusCode,scenario,response);
-		if(actualStatusCode ==200 || actualStatusCode ==201)
-		{
-			programrequest.saveResponseBody(response);
-			programrequest.validateProgramResponseBodyDetails(response);
+		/*************************saving and validating response body for post/put request********************************/
+		if(!scenario.contains("Get") && !scenario.contains("Delete") ) {
+			if(actualStatusCode ==200 || actualStatusCode ==201)
+			{
+				programrequest.saveResponseBody(response);
+				programrequest.validateProgramResponseBodyDetails(response);
+			}
 		}
+	}
+
+	@Then("Admin recives Responce Body for the given programId")
+	public void admin_recives_responce_body_for_the_given_program_id() {
+		if(response.getStatusCode() == 200)
+		{
+			programrequest.validateGetProgramIDResponseBodyDetails(response);
+		}
+	}
+
+	@Then("Admin recives all programs with users {string}")
+	public void admin_recives_all_programs_with_users(String scenario) {
+
+		if(response.getStatusCode() == 200){
+			if(scenario.contains("Users")) {
+				programrequest.validateGetAllProgramUsersResponseBody(response);
+			}
+			else {
+				programrequest.validateGetAllProgramResponseBody(response);
+			}
+		}
+
 	}
 
 	@When("Admin sends HTTPS Request with endpoint for delete program")
@@ -92,4 +119,5 @@ public class ProgramSteps {
 	public void adminSendsHTTPSRequestWithEndpointForGetProgram() {
 		response = programrequest.sendRequest(requestSpec);
 	}
+
 }
