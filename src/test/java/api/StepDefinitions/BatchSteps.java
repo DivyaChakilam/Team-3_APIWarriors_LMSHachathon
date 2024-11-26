@@ -8,6 +8,7 @@ import io.cucumber.java.en.When;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.testng.Assert;
 
 import java.io.IOException;
 import java.io.InvalidClassException;
@@ -58,5 +59,31 @@ public class BatchSteps {
             throws IOException, ParseException, InvalidFormatException {
        batchrequest.createBatch(scenario);
 
+    }
+
+    @Given("Admin set Authorization for batch delete")
+    public void admin_set_authorization_for_batch_delete() {
+        requestSpec = batchrequest.setAuth();
+    }
+
+    @Given("Admin creates delete a Batch Request for the LMS with request body {string}")
+    public void admin_creates_delete_a_batch_request_for_the_lms_with_request_body(String scenario) throws IOException, InvalidFormatException, ParseException {
+        batchrequest.createBatch(scenario);
+        requestSpec = batchrequest.buildRequest(requestSpec);
+
+    }
+
+    @When("Admin sends HTTPS delete a Batch Request and request Body with {string} endpoint")
+    public void admin_sends_https_delete_a_batch_request_and_request_body_with_endpoint(String deleteEndpoint) {
+        response = batchrequest.senddeleteRequest(requestSpec,deleteEndpoint);
+    }
+
+    @Then("Admin receives StatusCode with statusText for delete a Batch {string}")
+    public void admin_receives_status_code_with_status_text_for_delete_a_batch(String scenario) {
+        if (response == null) {
+            throw new AssertionError("Response is null. API call might have failed.");
+        }
+        int actualStatusCode = response.getStatusCode();
+        Assert.assertEquals(actualStatusCode, batchrequest.getStatusCode(), "Status code does not match!");
     }
 }

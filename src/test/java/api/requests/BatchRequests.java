@@ -25,6 +25,9 @@ public class BatchRequests extends CommonUtils {
     private BatchPojo batch;
     private Response response;
 
+    private static final String INVALID_Batch_ID = "405";
+    private static final String INVALID_TOKEN = "njbsjkbfk";
+
 
     public RequestSpecification setAuth(){
         RestAssured.baseURI = endpoints.getString("baseUrl");
@@ -56,6 +59,27 @@ public class BatchRequests extends CommonUtils {
     public Response sendRequest(RequestSpecification requestSpec) {
 
         String endpoint = currentRow.get("EndPoint");
+        response = CommonUtils.getResponse(requestSpec,endpoint);
+        return response;
+    }
+
+    public int getStatusCode() {
+        String expectedStatusCodeString = currentRow.get("StatusCode");
+        int expectedStatusCode = (int) Double.parseDouble(expectedStatusCodeString); // Convert "201.0" to 201
+        return expectedStatusCode;
+    }
+
+    public Response senddeleteRequest(RequestSpecification requestSpec,String deleteEndpoint) {
+
+        String endpoint = currentRow.get("EndPoint");
+
+
+        if (deleteEndpoint.contains("Id")) {
+            endpoint += currentRow.get("ScenarioName").equalsIgnoreCase("PutInvalidProgramId")
+                    ? INVALID_Batch_ID
+                    : 8750;//Commons.getProgramId();
+
+        }
         response = CommonUtils.getResponse(requestSpec,endpoint);
         return response;
     }
