@@ -23,9 +23,12 @@ public class ProgramPayload extends CommonUtils{
 			throws IOException, ParseException, InvalidFormatException {
 		currentRow = CommonUtils.getCurrentRow(scenario,sheetName);
 		Map<String, Object> programDetails = new  HashMap<String, Object>();
-		ProgramPojo programPojo = new ProgramPojo(currentRow.get("ProgramName"),currentRow.get("ProgramDesc"),currentRow.get("ProgramStatus"));
+		ProgramPojo programPojo = null;
+		if(!scenario.contains("Get")) {
+		 programPojo = new ProgramPojo(currentRow.get("ProgramName"),currentRow.get("ProgramDesc"),currentRow.get("ProgramStatus"));
+		}
 		LOGGER.info("Read Program details from Excel file: " + programPojo);
-		programDetails.put("program", programPojo);
+		programDetails.put("programPojo", programPojo);
 		programDetails.put("currentRow", currentRow);
 		return programDetails;
 

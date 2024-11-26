@@ -1,0 +1,22 @@
+[
+  {
+    "batchName": "APIWarriors001",
+    "batchDescription": "Description for Batch 1",
+    "batchNoOfClasses": "50"
+  },
+  {
+    "batchName": "APIWarriors002",
+    "batchDescription": "Description for Batch 2",
+    "batchNoOfClasses": "85"
+  },
+  {
+    "batchName": "APIWarriors003",
+    "batchDescription": "Description for Batch 3",
+    "batchNoOfClasses": "70"
+  },
+  {
+    "batchName": "APIWarriors004",
+    "batchDescription": "Description for Batch 4",
+    "batchNoOfClasses": "75"
+  }
+]

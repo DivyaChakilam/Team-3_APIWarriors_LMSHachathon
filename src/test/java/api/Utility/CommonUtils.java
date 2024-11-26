@@ -4,6 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -41,44 +42,46 @@ public class CommonUtils {
 			throw new IllegalStateException("Request or currentRow is not initialized.");
 		}
 
-		String method = currentRow.get("Method");
-		//String endpoint = currentRow.get("EndPoint");
-		Response response;
-		switch (method.toUpperCase()) {
-		case "POST":
-			response = requestSpec.when().post(endpoint);
-			break;
-		case "GET":
-			response = requestSpec.when().get(endpoint);
-			break;
-		case "PUT":
-			response = requestSpec.when().put(endpoint);
-			break;
-		case "DELETE":
-			response = requestSpec.when().delete(endpoint);
-			break;
-		default:
-			throw new IllegalArgumentException("Unsupported HTTP method: " + method);
-		}
-		return response;
+		 String method = currentRow.get("Method");
+	        //String endpoint = currentRow.get("EndPoint");
+	        Response response;
+	        switch (method.toUpperCase()) {
+	            case "POST":
+	                response = requestSpec.when().post(endpoint);
+	                break;
+	            case "GET":
+	                response = requestSpec.when().get(endpoint);
+	                break;
+	            case "PUT":
+	                response = requestSpec.when().put(endpoint);
+	                break;
+	            case "DELETE":
+	                response = requestSpec.when().delete(endpoint);
+	                break;
+	            default:
+	                throw new IllegalArgumentException("Unsupported HTTP method: " + method);
+	        }
+	       return response;
 	}
 
 	public static void validateResponseSchema(Response response, String schemaPath) {
 
 		response.then().assertThat().body(JsonSchemaValidator.matchesJsonSchemaInClasspath(schemaPath));
 	}
-	
+
 	public static String validateResponseMessage(String expectedStatusText, int actualStatusCode, String scenario,
 			Response response) {
 		String actualStatusMessage = null;
 		if(expectedStatusText!=null)
 		{
-			if(!scenario.equalsIgnoreCase("PutInvalidProgramId")
+			if(!scenario.contains("InvalidID")
 					&& !scenario.contains("NoAuth")
 					&& !scenario.contains("InvalidToken")
+					&& !scenario.contains("InvalidBaseURI")
+					&& !scenario.contains("InvalidEndpoint")
 					&& actualStatusCode!=200
 					&& actualStatusCode!=201)
-			{	
+			{
 				actualStatusMessage = response.jsonPath().getString("message");
 				boolean actualSuccess = response.jsonPath().getBoolean("success");
 				//return actualStatusMessage;
