@@ -154,13 +154,27 @@ public class ProgramRequests extends CommonUtils {
 	{
 		String schemaPath = endpoints.getString("getAllProgramsSchemaPath");
 		CommonUtils.validateResponseSchema(response,schemaPath);
-		
+
 	}
 	public void validateGetAllProgramUsersResponseBody(Response response)
 	{
 		String schemaPath = endpoints.getString("getAllProgramUsersSchemaPath");
 		CommonUtils.validateResponseSchema(response,schemaPath);
-		
+
 	}
-	
+
+	public RequestSpecification addPathParamForDeleteRequest(RequestSpecification requestSpec) {
+
+		if (requestSpec == null) {
+			throw new IllegalStateException("RequestSpecification is not initialized.");
+		}
+		System.out.println(currentRow.get("ProgramId").toString());
+		Integer valueOfProgramId = 0;
+		if (currentRow.get("ProgramId").toString().indexOf(".") >= 0){
+			valueOfProgramId = Integer.parseInt(currentRow.get("ProgramId").toString().substring(0, currentRow.get("ProgramId").toString().indexOf(".")));
+		}
+		return requestSpec.contentType(currentRow.get("ContentType")).pathParam("programId", valueOfProgramId);
+
+	}
+
 }
