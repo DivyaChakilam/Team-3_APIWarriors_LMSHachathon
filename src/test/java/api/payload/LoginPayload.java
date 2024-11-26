@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import api.Utility.CommonUtils;
 import lombok.Data;
 
-@Data // Generates getters, setters, toString, equals, and hashCode methods
+//@Data // Generates getters, setters, toString, equals, and hashCode methods
 //@NoArgsConstructor // Generates a no-arguments constructor
 //@AllArgsConstructor // Generates an all-arguments constructor
 public class LoginPayload extends CommonUtils {
