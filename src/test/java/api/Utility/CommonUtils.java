@@ -17,9 +17,9 @@ public class CommonUtils {
 	public static String filePath = endpoints.getString("excelPath");
 	public static Map<String, String> getCurrentRow(String scenario,String sheetName){
 		try {
-			if (excelData == null) {
+			//if (excelData == null) {
 				excelData = ExcelReader.readExcelData(filePath, sheetName);
-			}
+		//	}
 			// Loop through the Excel data and compare each row's scenario with the passed scenario
 			for (Map<String, String> row : excelData) {
 				currentRow = row;
@@ -33,13 +33,15 @@ public class CommonUtils {
 			throw new RuntimeException("Failed to read Excel file.", e);
 		}
 	}
-	public static Response getResponse(RequestSpecification requestSpec) {
+	
+
+	public static Response getResponse(RequestSpecification requestSpec ,String endpoint) {
 		if (requestSpec == null || currentRow == null) {
             throw new IllegalStateException("Request or currentRow is not initialized.");
         }
 
 		 String method = currentRow.get("Method");
-	        String endpoint = currentRow.get("EndPoint");
+	       
 	        Response response;
 	        switch (method.toUpperCase()) {
 	            case "POST":
@@ -59,5 +61,7 @@ public class CommonUtils {
 	        }
 	       return response;
 	}
-}
+	
 
+	
+}
