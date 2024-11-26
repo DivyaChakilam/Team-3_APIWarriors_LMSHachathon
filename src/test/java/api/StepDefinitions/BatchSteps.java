@@ -86,4 +86,16 @@ public class BatchSteps {
         int actualStatusCode = response.getStatusCode();
         Assert.assertEquals(actualStatusCode, batchrequest.getStatusCode(), "Status code does not match!");
     }
+
+    @Given("Admin creates GET Request with valid_invalid Batch Id for {string}")
+    public void adminCreatesGETRequestWithValidInvalidBatchIdFor(String scenario) throws IOException, ParseException, InvalidFormatException {
+        batchrequest.createBatch(scenario);
+        requestSpec = batchrequest.buildRequest(requestSpec);
+    }
+
+    @Given("Admin creates GET Request with valid_invalid Batch Name for {string}")
+    public void adminCreatesGETRequestWithValid_invalidBatchNameFor(String scenario) throws IOException, ParseException, InvalidFormatException {
+        batchrequest.createBatch(scenario);
+        requestSpec = batchrequest.buildRequest(requestSpec);
+    }
 }

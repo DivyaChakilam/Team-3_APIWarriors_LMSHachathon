@@ -27,18 +27,18 @@ pipeline {
             properties: [],
             reportBuildPolicy: 'ALWAYS',
             results: [
-              [path: 'target/allure-results']
+              [path: 'allure-result']
             ]
           ])
         }
       }
     }
-    stage('Cucumber Reports') {
-      steps {
-        cucumber buildStatus: "UNSTABLE",
-          fileIncludePattern: "**/cucumber.json",
-          jsonReportDirectory: 'target'
-      }
-    }
+//     stage('Cucumber Reports') {
+//       steps {
+//         cucumber buildStatus: "UNSTABLE",
+//           fileIncludePattern: "**/cucumber.json",
+//           jsonReportDirectory: 'target'
+//       }
+//     }
   }
 }
