@@ -1,7 +1,7 @@
 @program
 Feature: Program Post Request
 
-  Background: 
+  Background:
     Given Admin set Authorization
 
   @postProgram
@@ -42,7 +42,7 @@ Feature: Program Post Request
     When Admin sends HTTPS Request and request Body with "programName" endpoint
     Then Admin receives StatusCode with statusText "<Scenario>"
 
-    Examples: 
+    Examples:
       | Scenario                      |
       | PutProgramByInvalidName       |
       | PutMissingMandatoryByName     |
@@ -61,7 +61,7 @@ Feature: Program Post Request
     Then Admin receives StatusCode with statusText "<Scenario>"
     And Admin recives Responce Body for the given programId
 
-    Examples: 
+    Examples:
       | Scenario                          |
       | GetProgramByInvalidID             |
       | GetProgramByIdWithNoAuth          |
@@ -76,7 +76,7 @@ Feature: Program Post Request
     Then Admin receives StatusCode with statusText "<Scenario>"
     And Admin recives all programs with users "<Scenario>"
 
-    Examples: 
+    Examples:
       | Scenario                              |
       | GetAllProgramUsersWithInvalidEndpoint |
       | GetAllProgramUsersWithInvalidMethod   |
@@ -95,7 +95,7 @@ Feature: Program Post Request
     When Admin sends HTTPS Request and request Body with "programName" endpoint
     Then Admin receives StatusCode with statusText "<Scenario>"
 
-    Examples: 
+    Examples:
       | Scenario                           |
       | DeleteProgramByInvalidName         |
       | DeleteProgramByNameInvalidEndpoint |
@@ -103,3 +103,15 @@ Feature: Program Post Request
       | DeleteProgramByNameInvalidBaseURI  |
       | DeleteProgramByNameNoAuth          |
       #| DeleteProgramByValidName           |
+
+  @deleteProgramByProgramId
+  Scenario Outline: Check if Admin able to delete a program with valid/invalid program ID
+    Given Admin creates DELETE Request for the LMS API endpoint with valid_invalid program ID "<Scenario>"
+    When Admin sends HTTPS Request with endpoint for delete program
+    Then Admin receives StatusCode for program delete with statusText
+
+    Examples:
+      | Scenario                         |
+      | valid LMS API,invalid program ID |
+      | DeleteProgramByProgramIdNoAuth   |
+      | valid program ID                 |

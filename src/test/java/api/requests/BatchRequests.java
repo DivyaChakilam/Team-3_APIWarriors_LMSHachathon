@@ -1,5 +1,65 @@
 package api.requests;
 
-public class BatchRequests {
+import api.Utility.CommonUtils;
+import api.Utility.TokenManager;
+import api.payload.BatchPayload;
+import api.pojo.BatchPojo;
+import io.cucumber.java.it.Ma;
+import io.restassured.RestAssured;
+import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import io.restassured.specification.RequestSpecification;
+import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+
+import java.io.IOException;
+import java.text.ParseException;
+import java.util.List;
+import java.util.Map;
+
+import static io.restassured.RestAssured.given;
+
+public class BatchRequests extends CommonUtils {
+    private RequestSpecification requestSpec;
+    private List<Map<String, String>> excelData;
+    private Map<String, String> currentRow;
+    private BatchPojo batch;
+    private Response response;
+
+
+    public RequestSpecification setAuth(){
+        RestAssured.baseURI = endpoints.getString("baseUrl");
+        return given()
+                .header("Authorization", "Bearer " + TokenManager.getToken());
+    }
+
+    public void createBatch(String scenario)
+        throws IOException, InvalidFormatException, ParseException{
+
+        Map<String, Object> batchDetails =new BatchPayload().getDataFromExcel(scenario);
+        if(batchDetails !=null) {
+           if(batchDetails.get("batch") !=null) {
+            this.batch = (BatchPojo)  batchDetails.get("batch");
+        }
+        if(batchDetails.get("currentRow") !=null) {
+            this.currentRow = (Map<String, String>) batchDetails.get("currentRow");
+        }
+        }
+    }
+    public RequestSpecification buildRequest(RequestSpecification requestSpec){
+
+        if (requestSpec ==null) {
+            throw new IllegalStateException("RequestSpecification is not initialized.");
+
+        }
+        return requestSpec.contentType(currentRow.get("ContentType")).body(batch);
+    }
+    public Response sendRequest(RequestSpecification requestSpec) {
+
+        String endpoint = currentRow.get("EndPoint");
+        response = CommonUtils.getResponse(requestSpec,endpoint);
+        return response;
+    }
+
+
 
 }
