@@ -51,14 +51,73 @@ public class ProgramSteps {
 		if (response == null) {
 			throw new AssertionError("Response is null. API call might have failed.");
 		}
+		/*************************status code validation********************************/
 		int actualStatusCode = response.getStatusCode();
 		Assert.assertEquals(actualStatusCode, programrequest.getStatusCode(), "Status code does not match!");
+		/*************************status Text validation********************************/
 		String expectedStatusText = programrequest.getStatusText();
 		CommonUtils.validateResponseMessage(expectedStatusText,actualStatusCode,scenario,response);
-		if(actualStatusCode ==200 || actualStatusCode ==201)
-		{
-			programrequest.saveResponseBody(response);
-			programrequest.validateProgramResponseBodyDetails(response);
+		/*************************saving and validating response body for post/put request********************************/
+		if(!scenario.contains("Get") && !scenario.contains("Delete") ) {
+			if(actualStatusCode ==200 || actualStatusCode ==201)
+			{
+				programrequest.saveResponseBody(response);
+				programrequest.validateProgramResponseBodyDetails(response);
+			}
 		}
 	}
+
+	@Then("Admin recives Responce Body for the given programId")
+	public void admin_recives_responce_body_for_the_given_program_id() {
+		if(response.getStatusCode() == 200)
+		{
+			programrequest.validateGetProgramIDResponseBodyDetails(response);
+		}
+	}
+
+	@Then("Admin recives all programs with users {string}")
+	public void admin_recives_all_programs_with_users(String scenario) {
+
+		if(response.getStatusCode() == 200){
+			if(scenario.contains("Users")) {
+				programrequest.validateGetAllProgramUsersResponseBody(response);
+			}
+			else {
+				programrequest.validateGetAllProgramResponseBody(response);
+			}
+		}
+
+	}
+
+	@When("Admin sends HTTPS Request with endpoint for delete program")
+	public void adminSendsHTTPSRequestWithEndpointForDeleteProgram() {
+		response = programrequest.sendRequest(requestSpec);
+	}
+
+	@Then("Admin receives StatusCode for program delete with statusText")
+	public void adminReceivesStatusCodeForProgramDeleteWithStatusText() {
+		System.out.println(response);
+		if (response == null) {
+			throw new AssertionError("Response is null. API call might have failed.");
+
+		}
+	}
+
+	@Given("Admin creates DELETE Request for the LMS API endpoint with valid_invalid program ID {string}")
+	public void admin_creates_delete_request_for_the_lms_api_endpoint_with_valid_invalid_program_id(String scenario) throws IOException, ParseException, InvalidFormatException {
+		programrequest.createProgram(scenario);
+		requestSpec = programrequest.addPathParamForDeleteRequest(requestSpec);
+	}
+
+	@Given("Admin creates GET request for the LMS API endpoint with valid_invalid program id {string}")
+	public void adminCreatesGETRequestForTheLMSAPIEndpointWithValid_invalidProgramId(String scenario) throws IOException, ParseException, InvalidFormatException {
+		programrequest.createProgram(scenario);
+		requestSpec = programrequest.addPathParamForDeleteRequest(requestSpec);
+	}
+
+	@When("Admin sends HTTPS Request with endpoint for get program")
+	public void adminSendsHTTPSRequestWithEndpointForGetProgram() {
+		response = programrequest.sendRequest(requestSpec);
+	}
+
 }
