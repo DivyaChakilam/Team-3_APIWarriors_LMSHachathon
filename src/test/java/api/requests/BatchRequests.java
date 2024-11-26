@@ -2,6 +2,7 @@ package api.requests;
 
 import api.Utility.CommonUtils;
 import api.Utility.TokenManager;
+import api.commons.Commons;
 import api.payload.BatchPayload;
 import api.pojo.BatchPojo;
 import io.cucumber.java.it.Ma;
@@ -60,6 +61,9 @@ public class BatchRequests extends CommonUtils {
 
         String endpoint = currentRow.get("EndPoint");
         response = CommonUtils.getResponse(requestSpec,endpoint);
+
+        int batchId = response.jsonPath().getInt("batchId");
+        Commons.setBatchId(batchId);
         return response;
     }
 
