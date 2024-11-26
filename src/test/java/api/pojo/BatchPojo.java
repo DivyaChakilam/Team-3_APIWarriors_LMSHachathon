@@ -21,6 +21,6 @@ public class BatchPojo {
     @JsonProperty("programName")
     private String programName;
 
-    public BatchPojo(String batchDescription, String batchName, String batchStatus) {
+    public BatchPojo(String batchName, String batchStatus) {
     }
 }

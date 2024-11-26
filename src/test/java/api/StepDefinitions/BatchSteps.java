@@ -45,5 +45,18 @@ public class BatchSteps {
             throw new AssertionError("Response is null. API call might have failed.");
 
         }}
+    @Given("Admin creates PUT Request  with valid data in requestBody for {string}")
+    public void admin_creates_put_request_with_valid_data_in_request_body_for(String scenario)
+            throws IOException, ParseException, InvalidFormatException {
+        batchrequest.createBatch(scenario);
+        requestSpec = batchrequest.buildRequest(requestSpec);
 
+    }
+
+    @Given("Admin creates GET Request with valid\\/invalid Program Id for {string}")
+    public void admin_creates_get_request_with_valid_invalid_program_id_for(String scenario)
+            throws IOException, ParseException, InvalidFormatException {
+       batchrequest.createBatch(scenario);
+
+    }
 }

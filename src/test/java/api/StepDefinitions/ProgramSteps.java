@@ -61,4 +61,35 @@ public class ProgramSteps {
 			programrequest.validateProgramResponseBodyDetails(response);
 		}
 	}
+
+	@When("Admin sends HTTPS Request with endpoint for delete program")
+	public void adminSendsHTTPSRequestWithEndpointForDeleteProgram() {
+		response = programrequest.sendRequest(requestSpec);
+	}
+
+	@Then("Admin receives StatusCode for program delete with statusText")
+	public void adminReceivesStatusCodeForProgramDeleteWithStatusText() {
+		System.out.println(response);
+		if (response == null) {
+			throw new AssertionError("Response is null. API call might have failed.");
+
+		}
+	}
+
+	@Given("Admin creates DELETE Request for the LMS API endpoint with valid_invalid program ID {string}")
+	public void admin_creates_delete_request_for_the_lms_api_endpoint_with_valid_invalid_program_id(String scenario) throws IOException, ParseException, InvalidFormatException {
+		programrequest.createProgram(scenario);
+		requestSpec = programrequest.addPathParamForDeleteRequest(requestSpec);
+	}
+
+	@Given("Admin creates GET request for the LMS API endpoint with valid_invalid program id {string}")
+	public void adminCreatesGETRequestForTheLMSAPIEndpointWithValid_invalidProgramId(String scenario) throws IOException, ParseException, InvalidFormatException {
+		programrequest.createProgram(scenario);
+		requestSpec = programrequest.addPathParamForDeleteRequest(requestSpec);
+	}
+
+	@When("Admin sends HTTPS Request with endpoint for get program")
+	public void adminSendsHTTPSRequestWithEndpointForGetProgram() {
+		response = programrequest.sendRequest(requestSpec);
+	}
 }

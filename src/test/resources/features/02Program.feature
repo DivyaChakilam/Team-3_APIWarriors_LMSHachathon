@@ -10,7 +10,7 @@ Feature: Program Post Request
     When Admin sends HTTPS Request and request Body with endpoint
     Then Admin receives StatusCode with statusText "<Scenario>"
 
-    Examples: 
+    Examples:
       | Scenario             |
       | Invalid Endpoint     |
       | Existing Program     |
@@ -52,3 +52,28 @@ Feature: Program Post Request
 #      | InvalidToken                  |
 #      | PutValidProgramName           |
 #      | PutStatusByProgramName        |
+
+  @deleteprogram
+  Scenario Outline: Check if Admin able to delete a program with valid/invalid program ID
+    Given Admin creates DELETE Request for the LMS API endpoint with valid_invalid program ID "<Scenario>"
+    When Admin sends HTTPS Request with endpoint for delete program
+    Then Admin receives StatusCode for program delete with statusText
+
+    Examples:
+      | Scenario                         |
+      | valid LMS API,invalid program ID |
+      | valid program ID                 |
+
+  @getprogrambyid
+  Scenario Outline: check if Admin able to get program with valid_invalid program id
+    Given Admin creates GET request for the LMS API endpoint with valid_invalid program id "<Scenario>"
+    When Admin sends HTTPS Request with endpoint for get program
+    Then Admin receives StatusCode for program delete with statusText
+    Examples:
+      | Scenario                                   |
+      | get program with valid program ID          |
+      | get program with invalid program ID        |
+      | get program with invalid baseURI           |
+      | get program without Authorization - NoAuth |
+      | get program with invalid Endpoint          |
+
