@@ -15,8 +15,9 @@ import io.cucumber.testng.CucumberOptions;
 		        "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:" // Extent report
 				},
 		monochrome=false,  //console output color
-		features = {"src/test/resources/features" }, //location of feature files
+		features = {"src/test/resources/features" },
 		glue= {"api.StepDefinitions"}
+		
 		
 		)
 public class RunnerFile extends AbstractTestNGCucumberTests{
