@@ -16,7 +16,9 @@ import io.cucumber.testng.CucumberOptions;
 				},
 		monochrome=false,  //console output color
 		features = {"src/test/resources/features" },
-		glue= {"api.StepDefinitions"}
+		glue= {"api.StepDefinitions"},
+		dryRun = false,
+		tags = "@putClassDetails or @loginPost"
 		
 		
 		)

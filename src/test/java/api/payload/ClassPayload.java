@@ -17,12 +17,12 @@ import org.apache.logging.log4j.Logger;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
 import api.Utility.CommonUtils;
+import api.commons.Commons;
 import api.pojo.ClassPojo;
+import api.pojo.UpdateClassRecPojo;
 
 
 public class ClassPayload extends CommonUtils {
-	
-	
 	
 
 	 public List<Map<String, String>> excelData;
@@ -53,7 +53,8 @@ public class ClassPayload extends CommonUtils {
 	 		    currentRow.get("classTopic"),
 	 		    currentRow.get("classScheduledDates") != null && !currentRow.get("classScheduledDates").isEmpty() 
 	 	        ? Arrays.asList(currentRow.get("classScheduledDates").split(","))
-	 	        : new ArrayList<String>()  // Return an empty list if the value is null or empty
+	 	        : new ArrayList<String>(),  // Return an empty list if the value is null or empty
+	 	        currentRow.get("classStatus")
 	     );
 
 	        LOGGER.info("Read Class details from Excel file: " + classDetails);
@@ -63,7 +64,8 @@ public class ClassPayload extends CommonUtils {
 	        classDetailsMap.put("currentRow", currentRow);
 	        return classDetailsMap;
 	    }
-
+	 
+	 
 
 
 }
